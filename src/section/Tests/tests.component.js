@@ -1,4 +1,5 @@
 import React from "react";
+import  TestQuestion  from "../TestQuestion/testQuestion.component";
 import { TestContainer, TestNumberBox, TestNumberBoxContainer } from "./tests.style";
 
 
@@ -8,6 +9,7 @@ const Tests = (props) => {
   for(let i=0;i < props.testNumber;i++){
     numbersArr.push(i);
   }
+  console.log(props.testType);
   return <TestContainer>
     <TestNumberBoxContainer>
       {
@@ -16,6 +18,7 @@ const Tests = (props) => {
         ))
       }
     </TestNumberBoxContainer>
+    <TestQuestion />
   </TestContainer>
 };
 

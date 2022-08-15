@@ -13,14 +13,20 @@ import {
 
 const CategoryBox = (props) => {
   const data = useSelector((state) => state);
-  console.log(data?.results);
-  const [selectCategory, setCategory] = useState("");
+  // console.log(data?.results[0].category);
+  const [selectCategory, setCategory] = useState(data?.results[0].category);
   const [selectTestNumber, setTestNumber] = useState(10);
   const [isTestStart, setTestStart] = useState(false);
+  const [testType, setTestType] = useState({});
+  // console.log(selectCategory);
   return (
     <>
-      { isTestStart  ? (
-        <Tests testNumber = {selectTestNumber} testCategory = {selectCategory} />
+      {isTestStart ? (
+        <Tests
+          testNumber={selectTestNumber}
+          testType={testType}
+          testCategory={selectCategory}
+        />
       ) : (
         <CategoryBoxContainer className="col-8">
           <SelectBoxContainer className="my-5">
@@ -44,7 +50,7 @@ const CategoryBox = (props) => {
               value={selectCategory}
               onChange={(e) => setCategory(e.target.value)}
             >
-              {console.log(selectCategory)}
+    
               {data?.results.map((result, index) => (
                 <option value={result.category} key={index}>
                   {result.category}
@@ -56,7 +62,13 @@ const CategoryBox = (props) => {
             <Button
               className="btn form-control btn-success text-white my-2"
               value="Start"
-              onClick={() => setTestStart(true)}
+              onClick={() => {
+                setTestStart(true);
+                console.log(selectCategory);
+                setTestType(
+                  data?.results.find((item) => (item.category = selectCategory))
+                );
+              }}
             />
             <Button
               className="btn form-control btn-primary text-white my-2"
@@ -70,4 +82,3 @@ const CategoryBox = (props) => {
 };
 
 export default CategoryBox;
-
